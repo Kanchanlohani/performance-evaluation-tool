@@ -1,0 +1,1 @@
+git clone https://github.com/Kanchanlohani/performance-evaluation-tool.git && cd performance-evaluation-tool && cd backend && npm install && cd ../frontend && npm install
