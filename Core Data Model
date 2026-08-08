@@ -1,0 +1,13 @@
+## Core Data Model
+
+Company
+→ Employees
+→ Reporting Relationships
+→ Monthly Feedback Cycles
+→ Feedback Assignments
+→ Parameter Scores
+
+A Feedback record represents one reviewer giving feedback to one employee
+for one monthly cycle.
+
+A FeedbackScore stores the score and reason for one of the five parameters.
