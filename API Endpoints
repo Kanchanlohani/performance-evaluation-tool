@@ -1,0 +1,19 @@
+## API Endpoints
+
+### Authentication
+POST /api/login
+
+### Employee
+GET /api/employees/:employeeId/feedback
+GET /api/employees/:employeeId/pending
+GET /api/feedback/:feedbackId
+
+### Feedback
+POST /api/feedback/:feedbackId/submit
+GET /api/parameters
+
+### HR
+GET /api/hr/:companyId/overview
+
+### Company
+GET /api/company/:companyId/employees
