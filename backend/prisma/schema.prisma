@@ -1,0 +1,115 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  EMPLOYEE
+  HR
+}
+
+enum FeedbackStatus {
+  PENDING
+  SUBMITTED
+}
+
+model Company {
+  id        String   @id @default(cuid())
+  name      String
+  employees Employee[]
+  cycles    FeedbackCycle[]
+  createdAt DateTime @default(now())
+}
+
+model Employee {
+  id        String   @id @default(cuid())
+  companyId String
+  name      String
+  email     String   @unique
+  role      UserRole @default(EMPLOYEE)
+  title     String?
+  password  String   @default("password")
+
+  company Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
+
+  manages   ReportingRelationship[] @relation("Manager")
+  reportsTo ReportingRelationship[] @relation("Employee")
+
+  givenFeedback    Feedback[] @relation("Reviewer")
+  receivedFeedback Feedback[] @relation("Recipient")
+
+  createdAt DateTime @default(now())
+
+  @@index([companyId])
+}
+
+model ReportingRelationship {
+  id         String   @id @default(cuid())
+  companyId  String
+  managerId  String
+  employeeId String
+  startDate  DateTime
+  endDate    DateTime?
+
+  manager  Employee @relation("Manager", fields: [managerId], references: [id], onDelete: Cascade)
+  employee Employee @relation("Employee", fields: [employeeId], references: [id], onDelete: Cascade)
+
+  @@unique([managerId, employeeId, startDate])
+  @@index([companyId])
+}
+
+model FeedbackCycle {
+  id        String   @id @default(cuid())
+  companyId String
+  month     DateTime
+
+  company Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  feedback Feedback[]
+
+  @@unique([companyId, month])
+}
+
+model FeedbackParameter {
+  id           String @id @default(cuid())
+  name         String @unique
+  displayOrder Int
+
+  scores FeedbackScore[]
+}
+
+model Feedback {
+  id          String         @id @default(cuid())
+  cycleId     String
+  reviewerId  String
+  employeeId  String
+  status      FeedbackStatus @default(PENDING)
+  submittedAt DateTime?
+  createdAt   DateTime       @default(now())
+
+  cycle    FeedbackCycle @relation(fields: [cycleId], references: [id], onDelete: Cascade)
+  reviewer Employee      @relation("Reviewer", fields: [reviewerId], references: [id], onDelete: Cascade)
+  employee Employee      @relation("Recipient", fields: [employeeId], references: [id], onDelete: Cascade)
+
+  scores FeedbackScore[]
+
+  @@unique([cycleId, reviewerId, employeeId])
+  @@index([employeeId, cycleId])
+  @@index([reviewerId, cycleId])
+}
+
+model FeedbackScore {
+  id          String @id @default(cuid())
+  feedbackId  String
+  parameterId String
+  score       Int
+  reason      String
+
+  feedback  Feedback          @relation(fields: [feedbackId], references: [id], onDelete: Cascade)
+  parameter FeedbackParameter @relation(fields: [parameterId], references: [id])
+
+  @@unique([feedbackId, parameterId])
+}
