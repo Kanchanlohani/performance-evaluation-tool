@@ -1,0 +1,15 @@
+Company
+   |
+   └── Employee
+          |
+          ├── ReportingRelationship
+          |
+          ├── FeedbackCycle
+          |       |
+          |       └── Feedback
+          |              |
+          |              └── FeedbackScore
+          |                       |
+          |                       └── FeedbackParameter
+          |
+          └── Employee Feedback History
