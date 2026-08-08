@@ -1,0 +1,5 @@
+## Key Design Decision
+
+Feedback is modeled as an explicit assignment between a reviewer and an employee for a specific monthly feedback cycle.
+
+This allows the system to track both submitted and pending feedback, support different reporting structures across companies, and preserve historical feedback independently of future reporting-line changes.
