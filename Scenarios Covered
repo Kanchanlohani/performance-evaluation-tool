@@ -1,0 +1,16 @@
+## Scenarios Covered
+
+### Ashoka Textiles
+- Priya manages 6 employees and gives them monthly feedback.
+- Rohan gives monthly feedback to Priya.
+- Kavita can monitor feedback completion as HR.
+
+### Bright Path Consulting
+- The founder directly manages 8 employees.
+- There is no middle management layer.
+- HR can monitor pending submissions.
+
+### Employee History
+- Employees can view their feedback history.
+- Scores are stored separately for each fixed parameter.
+- Each score includes a written reason.
