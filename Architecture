@@ -1,0 +1,22 @@
+## Architecture
+
+Frontend:
+React + Vite
+
+Backend:
+Node.js + Express
+
+Database:
+PostgreSQL + Prisma
+
+Flow:
+
+Employee/HR
+    ↓
+React Frontend
+    ↓
+Express REST API
+    ↓
+Prisma
+    ↓
+PostgreSQL
