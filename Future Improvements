@@ -1,0 +1,8 @@
+## Future Improvements
+
+- Add production-grade authentication and role-based authorization.
+- Make feedback cycles configurable by HR.
+- Add parameter-wise performance charts.
+- Add audit logs for feedback changes.
+- Add notifications for pending feedback.
+- Add stronger company-level access controls.
